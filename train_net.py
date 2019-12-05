@@ -9,6 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 from tqdm import tqdm
 from process_data import get_states_and_values
+import os
 
 NUM_HIDDEN = 50
 NUM_EPOCHS = 1000
@@ -21,14 +22,17 @@ def trial():
     states, values = get_states_and_values()
     train_X, test_X, train_y, test_y = split_dataset(states, values)
 
-    # net = Net(NUM_HIDDEN, INPUT_DIM, OUTPUT_DIM)
-    net_dims = [INPUT_DIM, 50, 20, OUTPUT_DIM]
-    net = Network(net_dims)
+    net = Net(NUM_HIDDEN, INPUT_DIM, OUTPUT_DIM)
+    # net_dims = [INPUT_DIM, 20, 10, OUTPUT_DIM]
+    # net = Network(net_dims)
 
-    criterion = nn.MSELoss()
+    # criterion = nn.MSELoss()
+    criterion = nn.L1Loss()
     optimizer = torch.optim.SGD(net.parameters(), lr=LEARNING_RATE)
 
     train_errors = train_network(train_X, train_y, net, optimizer, criterion)
+
+    # torch.save(net, os.path.join(os.getcwd(), 'saved_models/model.pt'))
 
     return net, train_errors
 
