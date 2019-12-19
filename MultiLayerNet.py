@@ -1,12 +1,15 @@
 import torch.nn as nn
+from typing import List
 import torch
 
+Vector = List[int]
+
 class Network(nn.Module):
-    def __init__(self, net_dims):
+    def __init__(self, net_dims:Vector) -> None:
         """Constructor for multi-layer perceptron pytorch class
 
         params:
-            net_dims: list of ints  - dimensions of each layer in neural network
+            net_dims: dimensions of each layer in neural network
         """
 
         super(Network, self).__init__()
@@ -25,11 +28,14 @@ class Network(nn.Module):
 
         self.net = nn.Sequential(*layers)
 
-    def forward(self, x):
+    def forward(self, x:torch.tensor) -> torch.tensor:
         """Pass data through the network model
 
         params:
-            x: torch tensor - data to pass though neural network
+            x: data to pass though neural network
+
+        returns:
+            output from forward pass through NN
         """
 
         return torch.squeeze(self.net(x))
