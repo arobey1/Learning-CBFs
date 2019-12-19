@@ -1,15 +1,16 @@
 import numpy as np
 from scipy.io import loadmat
+from typing import Union
 import os
 
 DATA_DIR = 'data'
 
-def get_states_and_values():
+def get_states_and_values() -> Union[np.ndarray, np.ndarray]:
     """Load states and values from Haimin's data file
 
     returns:
-        * states - states of CBF
-        * values - values of CBF
+        states: states of CBF
+        values: values of CBF
     """
 
     X = load_data('X')
